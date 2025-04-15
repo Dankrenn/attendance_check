@@ -184,4 +184,52 @@ class FirebaseService {
       throw Exception('Ошибка при получении расписания: $e');
     }
   }
+
+  // Метод для сохранения статуса пользователей в Firestore
+  Future<void> saveUserStatusToFirestore(
+      String userGroup, String subject, String date, DateTime classTime, List<UserApp> users, Map<String, String> userStatus) async {
+    for (var user in users) {
+      await _firestore
+          .collection('magazine')
+          .doc(userGroup)
+          .collection(subject)
+          .doc(date)
+          .collection(classTime.toString())
+          .doc(user.email)
+          .set({
+        'status': userStatus[user.email],
+      });
+    }
+  }
+
+  // Метод для загрузки статуса пользователей из Firestore
+  Future<Map<String, String>> loadUserStatusFromFirestore(String userGroup, String subject, DateTime classTime, List<UserApp> users) async {
+    Map<String, String> userStatus = {};
+    try {
+      final date = classTime.toString().split(' ')[0].replaceAll('-', ' ');
+      final classTimeStr = classTime.toString();
+
+      for (var user in users) {
+        var doc = await _firestore
+            .collection('magazine')
+            .doc(userGroup)
+            .collection(subject)
+            .doc(date)
+            .collection(classTimeStr)
+            .doc(user.email)
+            .get();
+
+        if (doc.exists) {
+          userStatus[user.email] = doc.data()?['status'] ?? '+';
+        } else {
+          userStatus[user.email] = '+';
+        }
+      }
+    } catch (e) {
+      debugPrint('Ошибка при загрузке данных о посещаемости: $e');
+    }
+    return userStatus;
+  }
+
+
 }

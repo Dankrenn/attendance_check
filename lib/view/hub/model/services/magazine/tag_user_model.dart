@@ -32,10 +32,8 @@ class TagUserModel extends ChangeNotifier {
             ..setRule(doc['rule'] ?? '');
         }).toList();
 
-        // Инициализация статуса для всех пользователей
-        for (var user in _users) {
-          userStatus[user.email] = '+';
-        }
+        // Попытка загрузки данных о посещаемости из Firestore
+        userStatus = await firebaseService.loadUserStatusFromFirestore(userGroup, subject.titleSubject, subject.classTime, _users);
       }
     } catch (e) {
       debugPrint('Ошибка при загрузке пользователей: $e');
@@ -53,21 +51,21 @@ class TagUserModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> saveUserStatus() async {
-    // try {
-    //   for (var userId in _userStatus.keys) {
-    //     await firebaseService.updateUserStatus(userId, _userStatus[userId]!);
-    //   }
-    //   // Показать сообщение об успешном сохранении
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     SnackBar(content: Text('Данные успешно сохранены')),
-    //   );
-    // } catch (e) {
-    //   debugPrint('Ошибка при сохранении данных: $e');
-    //   // Показать сообщение об ошибке
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     SnackBar(content: Text('Ошибка при сохранении данных')),
-    //   );
-    // }
+  Future<void> saveUserStatus(BuildContext context) async {
+    try {
+      final userGroup = (await firebaseService.getUserField('group'))!;
+      final date = DateTime.now().toString().split(' ')[0].replaceAll('-', ' ');
+
+      await firebaseService.saveUserStatusToFirestore(userGroup, subject.titleSubject, date, subject.classTime, _users, userStatus);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Данные успешно сохранены')),
+      );
+    } catch (e) {
+      debugPrint('Ошибка при сохранении данных: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Ошибка при сохранении данных')),
+      );
+    }
   }
 }

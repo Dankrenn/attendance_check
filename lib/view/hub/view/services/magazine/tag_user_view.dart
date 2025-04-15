@@ -43,7 +43,7 @@ class _SubjectDetailWidget extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => model.saveUserStatus(),
+        onPressed: () => model.saveUserStatus(context),
         child: Icon(Icons.send_outlined),
       ),
     );

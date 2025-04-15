@@ -1,7 +1,5 @@
 import 'package:attendance_check/view/hub/model/profile_model.dart';
-import 'package:attendance_check/view/hub/model/services/setting_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:provider/provider.dart';
 
 class ProfileView extends StatelessWidget {

@@ -32,6 +32,7 @@ class ScheduleModel extends ChangeNotifier {
             typeActivity: doc['typeActivity'] ?? '',
             fullNameTeacher: doc['fullNameTeacher'] ?? '',
             subgroup: doc['subgroup'] ?? '',
+            group: doc['group'] ?? '',
             numberAudit: doc['numberAudit'] ?? 0,
             classTime: DateTime.parse(doc['classTime']),
           );

@@ -5,11 +5,12 @@ import '../model/services_model.dart';
 
 class ServicesView extends StatelessWidget {
   const ServicesView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ServicesModel>(
       create: (context) => ServicesModel(),
-      child: _DataEntryWidget(),
+      child: const _DataEntryWidget(),
     );
   }
 }
@@ -23,37 +24,41 @@ class _DataEntryWidget extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Сервисы'),
+        title: const Text('Сервисы'),
         centerTitle: true,
       ),
-      body: Padding(
+      body: model.isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Padding(
         padding: const EdgeInsets.all(16.0),
         child: GridView(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 16.0,
             mainAxisSpacing: 16.0,
             childAspectRatio: 1.5,
           ),
           children: [
-            ServiceCard(
-              color: Colors.purple,
-              icon: Icons.schedule,
-              label: 'Расписания',
-              onTap: () => model.goSchedule(context),
-            ),
+            if (!model.isTeacher)
+              ServiceCard(
+                color: Colors.purple,
+                icon: Icons.schedule,
+                label: 'Расписания',
+                onTap: () => model.goSchedule(context),
+              ),
             ServiceCard(
               color: Colors.orange,
               icon: Icons.book,
               label: 'Инструкция',
               onTap: () => model.goInstructions(context),
             ),
-            ServiceCard(
-              color: Colors.green,
-              icon: Icons.group,
-              label: 'Список группы',
-              onTap: () => model.goGroupList(context),
-            ),
+            if (!model.isTeacher)
+              ServiceCard(
+                color: Colors.green,
+                icon: Icons.group,
+                label: 'Список группы',
+                onTap: () => model.goGroupList(context),
+              ),
             ServiceCard(
               color: Colors.red,
               icon: Icons.assessment,
@@ -66,7 +71,7 @@ class _DataEntryWidget extends StatelessWidget {
               label: 'Настройки',
               onTap: () => model.goSettings(context),
             ),
-            if (model.isStudentLeader)
+            if (model.isStudentLeader && !model.isTeacher)
               ServiceCard(
                 color: Colors.blue,
                 icon: Icons.chrome_reader_mode_outlined,

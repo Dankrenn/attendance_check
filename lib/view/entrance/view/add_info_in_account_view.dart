@@ -35,15 +35,36 @@ class _DataEntryWidget extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 20),
-              TextFieldAddInfo(hint: model.email, enabled: false, onChanged: null),
+              TextFieldAddInfo(
+                  hint: model.email, enabled: false, onChanged: null),
               const SizedBox(height: 16),
-              TextFieldAddInfo(hint: 'Имя', enabled: true, onChanged: (String value) { model.setName(value); }),
+              TextFieldAddInfo(
+                  hint: 'Имя',
+                  enabled: true,
+                  onChanged: (String value) {
+                    model.setName(value);
+                  }),
               const SizedBox(height: 16),
-              TextFieldAddInfo(hint: 'Фамилия', enabled: true, onChanged: (String value) { model.setSurname(value); }),
+              TextFieldAddInfo(
+                  hint: 'Фамилия',
+                  enabled: true,
+                  onChanged: (String value) {
+                    model.setSurname(value);
+                  }),
               const SizedBox(height: 16),
-              TextFieldAddInfo(hint: 'Номер телефона', enabled: true, onChanged: (String value) { model.setPhoneNumber(value); }),
+              TextFieldAddInfo(
+                  hint: 'Номер телефона',
+                  enabled: true,
+                  onChanged: (String value) {
+                    model.setPhoneNumber(value);
+                  }),
               const SizedBox(height: 16),
-              TextFieldAddInfo(hint: 'Группа', enabled: true, onChanged: (String value) { model.setGroup(value); }),
+              TextFieldAddInfo(
+                  hint: 'Группа',
+                  enabled: model.isGroupFieldEnabled,
+                  onChanged: (String value) {
+                    model.setGroup(value);
+                  }),
               const SizedBox(height: 16),
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
@@ -62,6 +83,7 @@ class _DataEntryWidget extends StatelessWidget {
                 items: const [
                   DropdownMenuItem(value: 'Студент', child: Text('Студент')),
                   DropdownMenuItem(value: 'Староста', child: Text('Староста')),
+                  DropdownMenuItem(value: 'Преподователь', child: Text('Преподователь')),
                 ],
               ),
               const SizedBox(height: 24),

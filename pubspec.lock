@@ -166,14 +166,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.0"
-  flutter_profile_picture:
-    dependency: "direct main"
-    description:
-      name: flutter_profile_picture
-      sha256: "067caecef0d7162d3858eaca3c5859cbbb21b3e5704c2bc5b96b50ffe267f45d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -224,6 +216,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.19.0"
+  js:
+    dependency: transitive
+    description:
+      name: js
+      sha256: f2c445dce49627136094980615a031419f7f3eb393237e4ecd97ac15dea343f3
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.7"
   leak_tracker:
     dependency: transitive
     description:
@@ -376,6 +376,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.4"
+  qr:
+    dependency: transitive
+    description:
+      name: qr
+      sha256: "5a1d2586170e172b8a8c8470bbbffd5eb0cd38a66c0d77155ea138d3af3a4445"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.2"
+  qr_code_scanner:
+    dependency: "direct main"
+    description:
+      name: qr_code_scanner
+      sha256: dd8aecdcef9fd48e04129869c2f3739649844339aeead9ce49ee7957dbace7ca
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.0"
+  qr_flutter:
+    dependency: "direct main"
+    description:
+      name: qr_flutter
+      sha256: "5095f0fc6e3f71d08adef8feccc8cea4f12eec18a2e31c2e8d82cb6019f4b097"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.0"
   simple_gesture_detector:
     dependency: transitive
     description:

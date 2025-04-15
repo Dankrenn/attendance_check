@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 class AddInfoInAccountModel extends ChangeNotifier {
   final UserApp _userApp;
   final FirebaseService _firebaseService;
+  bool _isGroupFieldEnabled = true;
 
   AddInfoInAccountModel(this._userApp, this._firebaseService) {
     loadUserData();
@@ -19,6 +20,7 @@ class AddInfoInAccountModel extends ChangeNotifier {
   String get phoneNumber => _userApp.phoneNumber;
   String? get group => _userApp.group;
   String get userType => _userApp.rule;
+  bool get isGroupFieldEnabled => _isGroupFieldEnabled;
 
   void setName(String value) {
     _userApp.setName(value);
@@ -42,6 +44,7 @@ class AddInfoInAccountModel extends ChangeNotifier {
 
   void setUserType(String value) {
     _userApp.setRule(value);
+    _isGroupFieldEnabled = value != 'Преподователь';
     notifyListeners();
   }
 
@@ -62,14 +65,27 @@ class AddInfoInAccountModel extends ChangeNotifier {
   }
 
   bool validateAndSave(BuildContext context) {
+    debugPrint(_userApp.rule);
     if (_userApp.name.isEmpty ||
         _userApp.surname.isEmpty ||
         _userApp.phoneNumber.isEmpty ||
-        _userApp.group == null) {
+        (_userApp.group == '' && _isGroupFieldEnabled)) {
+      _showErrorMessage(context, 'Пожалуйста, заполните все обязательные поля.');
       return false;
+    }
+    debugPrint(_userApp.rule);
+    if (_userApp.rule == "Преподователь") {
+      debugPrint(_userApp.rule);
+      _userApp.setGroup('-');
     }
     saveUserData();
     _goBack(context);
     return true;
+  }
+
+  void _showErrorMessage(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
   }
 }

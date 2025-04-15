@@ -7,20 +7,23 @@ import 'package:go_router/go_router.dart';
 class ServicesModel extends ChangeNotifier {
   late UserApp _userApp;
   final FirebaseService firebaseService = FirebaseService();
+  bool _isLoading = true;
 
   ServicesModel() {
     _userApp = UserApp();
     getUserRule();
   }
 
+  bool get isLoading => _isLoading;
+
   Future<void> getUserRule() async {
     try {
-      notifyListeners();
       final role = await firebaseService.getUserField('rule');
       if (role != null) {
         _userApp.setRule(role);
       }
     } finally {
+      _isLoading = false;
       notifyListeners();
     }
   }
@@ -51,5 +54,9 @@ class ServicesModel extends ChangeNotifier {
 
   bool get isStudentLeader {
     return _userApp.rule == "Староста";
+  }
+
+  bool get isTeacher {
+    return _userApp.rule == "Преподователь";
   }
 }

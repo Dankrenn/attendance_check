@@ -5,6 +5,7 @@ class SubjectSchedule{
   late final String _type_activity;
   late final String _full_name_teacher;
   late final String _subgroup;
+  late final String _group;
   late final int _number_audit;
   late final DateTime _class_time;
 
@@ -12,6 +13,7 @@ class SubjectSchedule{
     required String titleSubject,
     required String typeActivity,
     required String fullNameTeacher,
+    required String group,
     required String subgroup,
     required int numberAudit,
     required DateTime classTime,
@@ -19,6 +21,7 @@ class SubjectSchedule{
     _title_subject = titleSubject;
     _type_activity = typeActivity;
     _full_name_teacher = fullNameTeacher;
+    _group = group;
     _subgroup = subgroup;
     _number_audit = numberAudit;
     _class_time = classTime;
@@ -43,6 +46,11 @@ class SubjectSchedule{
   String get subgroup => _subgroup;
   set subgroup(String subgroup) {
     _subgroup = subgroup;
+  }
+
+  String get group => _group;
+  set group(String group) {
+    _group = group;
   }
 
   int get numberAudit => _number_audit;

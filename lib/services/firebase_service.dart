@@ -26,7 +26,7 @@ class FirebaseService {
           email: email,
           password: password,
         );
-        await sendVerificationEmail();
+        //await sendVerificationEmail();
         return result.user;
       } catch (e) {
         throw Exception("Ошибка при регистрации пользователя: ${e.toString()}");
@@ -41,9 +41,9 @@ class FirebaseService {
         email: email,
         password: password,
       );
-      if (!result.user!.emailVerified) {
-        throw Exception("Пожалуйста, подтвердите свой email");
-      }
+      // if (!result.user!.emailVerified) {
+      //   throw Exception("Пожалуйста, подтвердите свой email");
+      // }
       return result.user;
     } catch (e) {
       if (e is FirebaseAuthException) {
@@ -172,6 +172,25 @@ class FirebaseService {
       QuerySnapshot querySnapshot = await _firestore
           .collection('schedules')
           .where('group', isEqualTo: group)
+          .get();
+
+      List<Map<String, dynamic>> schedules = querySnapshot.docs.map((doc) {
+        return doc.data() as Map<String, dynamic>;
+      }).toList();
+
+      return schedules;
+    } catch (e) {
+      debugPrint('Ошибка при получении расписания: $e');
+      throw Exception('Ошибка при получении расписания: $e');
+    }
+  }
+
+  // Метод для получения расписания по ФИО преподователя
+  Future<List<Map<String, dynamic>>?> getScheduleForFullnameTeacher(String fullName) async {
+    try {
+      QuerySnapshot querySnapshot = await _firestore
+          .collection('schedules')
+          .where('fullNameTeacher', isEqualTo: fullName)
           .get();
 
       List<Map<String, dynamic>> schedules = querySnapshot.docs.map((doc) {

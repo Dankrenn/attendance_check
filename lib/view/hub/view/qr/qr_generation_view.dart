@@ -5,7 +5,6 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 class QrGenerationView extends StatelessWidget {
   const QrGenerationView({super.key});
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<QrGeneretionModel>(
@@ -31,7 +30,7 @@ class _DataEntryWidget extends StatelessWidget {
         child: Tooltip(
           message: "Вы успешно отмечены на лекции",
           child: QrImageView(
-            data: model.qrData,
+            data: "Вы успешно отмечены на лекции ",
             size: 300,
             version: QrVersions.auto,
           ),

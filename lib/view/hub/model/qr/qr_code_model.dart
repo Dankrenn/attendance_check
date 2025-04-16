@@ -36,7 +36,7 @@ class QrCodeModel extends ChangeNotifier {
       final role = await firebaseService.getUserField('rule');
       if (role != null) {
         _userApp.setRule(role);
-        _isTeacher = role == "Преподователь";
+        _isTeacher = role == "Преподаватель";
         if (_isTeacher) {
           await getTeacherSchedule();
         }

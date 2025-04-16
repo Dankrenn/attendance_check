@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:attendance_check/models/subject_schedule.dart';
 import 'package:attendance_check/view/hub/model/qr/qr_code_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class QrCodeScanView extends StatelessWidget {
@@ -197,29 +194,8 @@ class ScheduleTeacherWidget extends StatelessWidget {
   }
 }
 
-class QrScannerView extends StatefulWidget {
+class QrScannerView extends StatelessWidget {
   const QrScannerView({super.key});
-
-  @override
-  _QrScannerViewState createState() => _QrScannerViewState();
-}
-
-class _QrScannerViewState extends State<QrScannerView> {
-  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  QRViewController? controller;
-
-  @override
-  void reassemble() {
-    super.reassemble();
-    controller?.pauseCamera();
-  }
-
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<QrCodeModel>(context);
@@ -227,20 +203,6 @@ class _QrScannerViewState extends State<QrScannerView> {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          Expanded(
-            flex: 5,
-            child: QRView(
-              key: qrKey,
-              onQRViewCreated: _onQRViewCreated,
-              overlay: QrScannerOverlayShape(
-                borderColor: Colors.red,
-                borderRadius: 10,
-                borderLength: 30,
-                borderWidth: 10,
-                cutOutSize: 300,
-              ),
-            ),
-          ),
           Expanded(
             flex: 1,
             child: Center(
@@ -253,13 +215,5 @@ class _QrScannerViewState extends State<QrScannerView> {
         ],
       ),
     );
-  }
-
-  void _onQRViewCreated(QRViewController controller) {
-    this.controller = controller;
-    controller.scannedDataStream.listen((scanData) {
-      final model = Provider.of<QrCodeModel>(context, listen: false);
-      model.setQrCodeResult(scanData.code ?? '');
-    });
   }
 }

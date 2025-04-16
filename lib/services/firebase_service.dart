@@ -26,7 +26,7 @@ class FirebaseService {
           email: email,
           password: password,
         );
-        //await sendVerificationEmail();
+        await sendVerificationEmail();
         return result.user;
       } catch (e) {
         throw Exception("Ошибка при регистрации пользователя: ${e.toString()}");
@@ -41,9 +41,9 @@ class FirebaseService {
         email: email,
         password: password,
       );
-      // if (!result.user!.emailVerified) {
-      //   throw Exception("Пожалуйста, подтвердите свой email");
-      // }
+      if (!result.user!.emailVerified) {
+        throw Exception("Пожалуйста, подтвердите свой email");
+      }
       return result.user;
     } catch (e) {
       if (e is FirebaseAuthException) {

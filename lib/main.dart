@@ -1,3 +1,4 @@
+import 'package:dcdg/dcdg.dart';
 import 'package:attendance_check/services/hive_service.dart';
 import 'package:attendance_check/utils/navigator_app.dart';
 import 'package:attendance_check/view/entrance/model/entrance_model.dart';
@@ -20,8 +21,6 @@ void main() async {
           messagingSenderId: '228678183603',
           projectId: 'attendence-check-3d68b'));
 
-  await initializeDateFormatting('ru_RU', null);
-  await HiveService().init();
   await initializeDateFormatting('ru_RU', null);
   await HiveService().init();
 

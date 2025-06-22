@@ -32,9 +32,9 @@ class _DataEntryWidget extends StatelessWidget {
         child: Column(
           children: [
             CalendarWidget(),
-        model.isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : Expanded(
+            model.isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : Expanded(
               child: ScheduleListWidget(),
             ),
           ],

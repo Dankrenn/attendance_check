@@ -12,7 +12,7 @@ class QrGeneretionModel extends ChangeNotifier {
   String get qrData => _qrData;
 
   void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 10), (timer) {
       _qrData = "Вы успешно отмечены на лекции ${DateTime.now()}";
       notifyListeners();
     });

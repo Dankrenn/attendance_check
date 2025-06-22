@@ -2,7 +2,6 @@ import 'package:attendance_check/services/firebase_service.dart';
 import 'package:attendance_check/utils/navigator_app.dart';
 import 'package:attendance_check/utils/validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
